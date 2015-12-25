@@ -93,7 +93,6 @@ public class ResultActivity extends Activity {
         meter_img.getWindowVisibleDisplayFrame(meter_rectangle);
 
         float height_pos = (float) ((meter_rectangle.height() / 19 - 6) * 4 * (6.25 - height * 0.3937 / 12) - 10);
-//        inch_img.setY((meter_rectangle.height()/19 - 6)*6 - 10);
         inch_img.setY(height_pos);
 
         height_chk = (ImageView) findViewById(R.id.height_chk);
