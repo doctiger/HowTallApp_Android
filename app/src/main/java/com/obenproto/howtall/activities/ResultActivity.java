@@ -32,9 +32,10 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
+ * ResultActivity
+ * <p/>
  * Created by Petro Rington on 12/22/2015.
  */
-
 public class ResultActivity extends Activity {
 
     SharedPreferences preferences;
@@ -91,7 +92,7 @@ public class ResultActivity extends Activity {
         Rect meter_rectangle = new Rect();
         meter_img.getWindowVisibleDisplayFrame(meter_rectangle);
 
-        float height_pos = (float) ((meter_rectangle.height()/19-6)*4 * (6.25 - height * 0.3937/12) - 10);
+        float height_pos = (float) ((meter_rectangle.height() / 19 - 6) * 4 * (6.25 - height * 0.3937 / 12) - 10);
 //        inch_img.setY((meter_rectangle.height()/19 - 6)*6 - 10);
         inch_img.setY(height_pos);
 
@@ -214,7 +215,7 @@ public class ResultActivity extends Activity {
     // Gender check button event
     @SuppressLint("LongLogTag")
     public void setGenderChk(boolean chk_flag) {
-        if(chk_flag) {
+        if (chk_flag) {
             gender_chk.setBackgroundResource(R.drawable.check_yes);
             gender_txt.setText(preferences.getString("EstimatedGender", ""));
 

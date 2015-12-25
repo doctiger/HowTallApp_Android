@@ -34,9 +34,10 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
+ * RecordActivity
+ * <p/>
  * Created by Petro Rington on 12/22/2015.
  */
-
 public class RecordActivity extends Activity {
 
     private static String filePath;
@@ -53,7 +54,7 @@ public class RecordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record_activity);
 
-        View background_layout= findViewById(R.id.record_activity);
+        View background_layout = findViewById(R.id.record_activity);
         background = background_layout.getBackground();
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);

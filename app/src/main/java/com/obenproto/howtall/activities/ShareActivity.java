@@ -56,9 +56,10 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
+ * ShareActivity
+ * <p/>
  * Created by Petro Rington on 12/22/2015.
  */
-
 public class ShareActivity extends Activity {
 
     final Context context = this;

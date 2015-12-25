@@ -15,9 +15,10 @@ import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
 /**
+ * HowTallAPIClient
+ * <p/>
  * Created by Petro Rington on 12/22/2015.
  */
-
 public class HowTallAPIClient {
 
     public static final String BASE_URL = "https://www.oben.us/";

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.obenproto.howtall.R;
 
 /**
+ * ConfirmActivity
+ * <p/>
  * Created by Petro Rington on 12/22/2015.
  */
 public class ConfirmActivity extends Activity {
