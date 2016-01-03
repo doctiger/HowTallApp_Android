@@ -174,7 +174,7 @@ public class ResultActivity extends Activity {
             height_txt.setText(preferences.getString("EstimatedHeight", "") + " cm");
 
             int recordId = Integer.parseInt(preferences.getString("RecordID", ""));
-            int actualHeight = Integer.parseInt(height_txt.getText().toString().split(" ")[0]);
+            int actualHeight = (int) (Integer.parseInt(height_txt.getText().toString().split(" ")[0]) / 2.54);
 
             // save the uer actual height.
             onUpdateActualHeight(recordId, actualHeight);
@@ -272,11 +272,15 @@ public class ResultActivity extends Activity {
             value_picker.setDisplayedValues(height_ary);
             value_picker.setMaxValue(height_ary.length - 1);
             value_picker.setValue(Integer.parseInt(height_txt.getText().toString().split(" ")[0]) - 40);
+            value_edt.setText(height_ary[value_picker.getValue()]);
+
 
         } else {
             value_picker.setDisplayedValues(age_ary);
             value_picker.setMaxValue(age_ary.length - 1);
             value_picker.setValue(Integer.parseInt(age_txt.getText().toString()) - 1);
+            value_edt.setText(age_ary[value_picker.getValue()]);
+
         }
 
         value_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -305,7 +309,7 @@ public class ResultActivity extends Activity {
                         height_txt.setText(value_edt.getText());
 
                         int recordId = Integer.parseInt(preferences.getString("RecordID", ""));
-                        int actualHeight = Integer.parseInt(value_edt.getText().toString().split(" ")[0]);
+                        int actualHeight = (int) (Integer.parseInt(value_edt.getText().toString().split(" ")[0]) / 2.54);
 
                         // save the uer actual height.
                         onUpdateActualHeight(recordId, actualHeight);

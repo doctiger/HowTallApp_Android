@@ -48,6 +48,7 @@ public class RecordActivity extends Activity {
     ProgressBar progressBar;
     Drawable background;
     ImageButton recordBtn;
+    int prev_orientation = 1;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,10 +80,24 @@ public class RecordActivity extends Activity {
                 "Don't ask me to carry an oily rag like that.",
                 "The eastern coast is a place for pure pleasure and excitement."};
 
+        int current_orientation = getResources().getConfiguration().orientation;
+        Log.d("orientation", String.valueOf(current_orientation));
+
         Random random = new Random();
         int random_index = random.nextInt(phrases.length);
         Log.d("example index", String.valueOf(random_index));
         example_txt.setText(phrases[random_index]);
+
+        if (current_orientation != preferences.getInt("PrevOrientation", 0)) {
+            example_txt.setText(preferences.getString("ExampleText", ""));
+        }
+
+        prev_orientation = getResources().getConfiguration().orientation;
+
+        editor.putString("ExampleText", example_txt.getText().toString());
+        editor.putInt("PrevOrientation", prev_orientation);
+        editor.apply();
+
 
         recordBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -143,6 +158,14 @@ public class RecordActivity extends Activity {
         RequestBody audioBody = RequestBody.create(MediaType.parse("image/png"), new File(filePath));
 
         onUploadVoice(userId, audioBody);
+//        editor.putString("EstimatedHeight", String.valueOf(177));
+//        editor.putString("EstimatedAge", String.valueOf(29));
+//        editor.putString("EstimatedGender", "Male");
+//        editor.putString("RecordID", "12");
+//        editor.apply();
+//
+//        startActivity(new Intent(RecordActivity.this, ResultActivity.class));
+//        finish();
     }
 
     // Upload and Save the recorded voice.

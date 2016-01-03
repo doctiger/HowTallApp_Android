@@ -89,6 +89,10 @@ public class UserInitActivity extends Activity {
                 return true;
             }
         });
+
+        int prev_orientation = getResources().getConfiguration().orientation;
+        editor.putInt("PrevOrientation", prev_orientation);
+        editor.apply();
     }
 
     @Override
