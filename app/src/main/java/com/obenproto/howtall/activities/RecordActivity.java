@@ -183,7 +183,7 @@ public class RecordActivity extends Activity {
                 example_txt.setAlpha(1.0f);
                 recording_status.setAlpha(1.0f);
                 recordBtn.setAlpha(1.0f);
-                recording_status.setText("Press and hold the button below and say this:");
+                recording_status.setText(R.string.ready_status);
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     HowTallApiResponse response_result = response.body();
@@ -231,7 +231,7 @@ public class RecordActivity extends Activity {
                 example_txt.setAlpha(1.0f);
                 recording_status.setAlpha(1.0f);
                 recordBtn.setAlpha(1.0f);
-                recording_status.setText("Press and hold the button below and say this:");
+                recording_status.setText(R.string.ready_status);
 
                 Toast.makeText(getApplicationContext(), " Response Failure", Toast.LENGTH_LONG).show();
             }

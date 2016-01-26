@@ -13,6 +13,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -421,7 +422,6 @@ public class ShareActivity extends Activity {
         return image;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     void setReducedImageSize() {
 
         int targetImageViewWidth = mPhotoCapturedImageView.getWidth();
@@ -433,6 +433,7 @@ public class ShareActivity extends Activity {
         int cameraImageWidth = bmOptions.outWidth;
         int cameraImageHeight = bmOptions.outHeight;
 
+        Log.d("cameara image path", camera_img_path);
         Log.d("cameara width", String.valueOf(bmOptions.outWidth));
         Log.d("cameara height", String.valueOf(bmOptions.outHeight));
 
@@ -441,7 +442,12 @@ public class ShareActivity extends Activity {
         bmOptions.inJustDecodeBounds = false;
 
         Bitmap photoReducedSizeBitmp = BitmapFactory.decodeFile(camera_img_path, bmOptions);
-        mPhotoCapturedImageView.setImageBitmap(photoReducedSizeBitmp);
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(photoReducedSizeBitmp, 0, 0, photoReducedSizeBitmp.getWidth(), photoReducedSizeBitmp.getHeight(), matrix, true);
+
+        mPhotoCapturedImageView.setImageBitmap(rotatedBitmap);
         mPhotoCapturedImageView.setBackgroundColor(Color.TRANSPARENT);
     }
 
