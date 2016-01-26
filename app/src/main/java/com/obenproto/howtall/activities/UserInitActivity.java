@@ -124,8 +124,8 @@ public class UserInitActivity extends Activity {
 
                     String confirm_str = preferences.getString("ConfirmStatus", "");
                     if (!confirm_str.equals("")) {
-//                        startActivity(new Intent(UserInitActivity.this, RecordActivity.class));
-                        startActivity(new Intent(UserInitActivity.this, ShareActivity.class));
+                        startActivity(new Intent(UserInitActivity.this, RecordActivity.class));
+//                        startActivity(new Intent(UserInitActivity.this, ShareActivity.class));
                         finish();
                     }
 

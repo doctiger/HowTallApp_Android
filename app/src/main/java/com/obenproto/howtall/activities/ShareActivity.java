@@ -430,8 +430,8 @@ public class ShareActivity extends Activity {
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(camera_img_path, bmOptions);
-        int cameraImageWidth = bmOptions.outWidth;
-        int cameraImageHeight = bmOptions.outHeight;
+        int cameraImageWidth = bmOptions.outHeight;
+        int cameraImageHeight = bmOptions.outWidth;
 
         Log.d("cameara image path", camera_img_path);
         Log.d("cameara width", String.valueOf(bmOptions.outWidth));
