@@ -49,6 +49,13 @@ public class RecordActivity extends Activity {
     Drawable background;
     ImageButton recordBtn;
     int prev_orientation = 1;
+    String[] phrases = {"When the sunlight strikes raindrops in the air, they act like a prism and form a rainbow.",
+            "The rainbow is a division of white light into many beautiful colors.",
+            "There is, according to legend, a boiling pot of gold at one end.",
+            "People look, but no one ever finds it.",
+            "She had your dark suit in greasy wash water all year.",
+            "Don't ask me to carry an oily rag like that.",
+            "The eastern coast is a place for pure pleasure and excitement."};
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -70,34 +77,6 @@ public class RecordActivity extends Activity {
         progressBar.setVisibility(View.GONE);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#484A49"),
                 android.graphics.PorterDuff.Mode.MULTIPLY);
-
-        // Set the example phrase.
-        String[] phrases = {"When the sunlight strikes raindrops in the air, they act like a prism and form a rainbow.",
-                "The rainbow is a division of white light into many beautiful colors.",
-                "There is, according to legend, a boiling pot of gold at one end.",
-                "People look, but no one ever finds it.",
-                "She had your dark suit in greasy wash water all year.",
-                "Don't ask me to carry an oily rag like that.",
-                "The eastern coast is a place for pure pleasure and excitement."};
-
-        int current_orientation = getResources().getConfiguration().orientation;
-        Log.d("orientation", String.valueOf(current_orientation));
-
-        Random random = new Random();
-        int random_index = random.nextInt(phrases.length);
-        Log.d("example index", String.valueOf(random_index));
-        example_txt.setText(phrases[random_index]);
-
-        if (current_orientation != preferences.getInt("PrevOrientation", 0)) {
-            example_txt.setText(preferences.getString("ExampleText", ""));
-        }
-
-        prev_orientation = getResources().getConfiguration().orientation;
-
-        editor.putString("ExampleText", example_txt.getText().toString());
-        editor.putInt("PrevOrientation", prev_orientation);
-        editor.apply();
-
 
         recordBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -128,6 +107,12 @@ public class RecordActivity extends Activity {
         example_txt.setAlpha(1.0f);
         recording_status.setAlpha(1.0f);
         recordBtn.setAlpha(1.0f);
+
+        example_txt.setText("");
+        progressBar.setVisibility(View.VISIBLE);
+
+        int userId = preferences.getInt("UserID", 0);
+        getUserPhrase(userId);
     }
 
     public void startRecording() {
@@ -166,6 +151,76 @@ public class RecordActivity extends Activity {
 //
 //        startActivity(new Intent(RecordActivity.this, ResultActivity.class));
 //        finish();
+    }
+
+    // Set the phrase sentence.
+    public void setPhraseSentence(String phraseStr) {
+
+        progressBar.setVisibility(View.GONE);
+
+        int current_orientation = getResources().getConfiguration().orientation;
+        Log.d("orientation", String.valueOf(current_orientation));
+
+        Random random = new Random();
+        int random_index = random.nextInt(phrases.length);
+        Log.d("example index", String.valueOf(random_index));
+
+        if (phraseStr == null) {
+            phraseStr = phrases[random_index];
+
+            if (current_orientation != preferences.getInt("PrevOrientation", 0)) {
+                example_txt.setText(preferences.getString("ExampleText", ""));
+            }
+        }
+
+        example_txt.setText(phraseStr);
+
+        prev_orientation = getResources().getConfiguration().orientation;
+
+        editor.putString("ExampleText", example_txt.getText().toString());
+        editor.putInt("PrevOrientation", prev_orientation);
+        editor.apply();
+    }
+
+    // Get user phrase
+    public void getUserPhrase(int userId) {
+
+        HowTallAPIService client = HowTallAPIClient.newInstance(HowTallAPIService.class);
+        Call<HowTallApiResponse> call = client.getUserPhrase(userId);
+
+        call.enqueue(new Callback<HowTallApiResponse>() {
+            @Override
+            public void onResponse(Response<HowTallApiResponse> response, Retrofit retrofit) {
+
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+
+                    if (response.body().Phrase.getMessage().equals("")) {
+
+                        String phraseSentence = response.body().Phrase.getSentence();
+                        Log.d("Phrase Sentence", phraseSentence);
+
+                        setPhraseSentence(phraseSentence);
+
+                    }
+
+                } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+
+                    Toast.makeText(getApplicationContext(), "Http Unauthorized", Toast.LENGTH_LONG).show();
+                    setPhraseSentence(null);
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Http Failure", Toast.LENGTH_LONG).show();
+                    setPhraseSentence(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.d("Status", t.getMessage());
+                setPhraseSentence(null);
+            }
+        });
     }
 
     // Upload and Save the recorded voice.

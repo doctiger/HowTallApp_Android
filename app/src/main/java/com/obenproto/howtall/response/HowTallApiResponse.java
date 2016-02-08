@@ -5,4 +5,6 @@ public class HowTallApiResponse {
     public HowTallUser User;
 
     public HowTallRecord Record;
+
+    public HowTallPhrase Phrase;
 }

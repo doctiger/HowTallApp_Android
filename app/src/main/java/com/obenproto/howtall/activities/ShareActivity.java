@@ -1,7 +1,7 @@
 package com.obenproto.howtall.activities;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
