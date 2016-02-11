@@ -368,7 +368,7 @@ public class ResultActivity extends Activity {
                 progressBar.setVisibility(View.GONE);
                 setHeightChk(true);
                 Log.d("Update Height Failure", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Service unavailable. Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -409,7 +409,7 @@ public class ResultActivity extends Activity {
                 progressBar.setVisibility(View.GONE);
                 setAgeChk(true);
                 Log.d("Update Age Failure", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Service unavailable. Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -451,7 +451,7 @@ public class ResultActivity extends Activity {
                 setGenderChk(true);
 
                 Log.d("Update Gender Failure", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Service unavailable. Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }
