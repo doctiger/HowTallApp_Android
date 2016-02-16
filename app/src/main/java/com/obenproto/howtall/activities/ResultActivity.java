@@ -93,7 +93,6 @@ public class ResultActivity extends Activity {
         meter_img.getWindowVisibleDisplayFrame(meter_rectangle);
 
         float height_pos = (float) ((meter_rectangle.height() / 19 - 6) * 4 * (6.25 - height * 0.3937 / 12) - 10);
-//        inch_img.setY((meter_rectangle.height()/19 - 6)*6 - 10);
         inch_img.setY(height_pos);
 
         height_chk = (ImageView) findViewById(R.id.height_chk);
@@ -175,7 +174,7 @@ public class ResultActivity extends Activity {
             height_txt.setText(preferences.getString("EstimatedHeight", "") + " cm");
 
             int recordId = Integer.parseInt(preferences.getString("RecordID", ""));
-            int actualHeight = Integer.parseInt(height_txt.getText().toString().split(" ")[0]);
+            int actualHeight = (int) (Integer.parseInt(height_txt.getText().toString().split(" ")[0]) / 2.54);
 
             // save the uer actual height.
             onUpdateActualHeight(recordId, actualHeight);
@@ -273,11 +272,15 @@ public class ResultActivity extends Activity {
             value_picker.setDisplayedValues(height_ary);
             value_picker.setMaxValue(height_ary.length - 1);
             value_picker.setValue(Integer.parseInt(height_txt.getText().toString().split(" ")[0]) - 40);
+            value_edt.setText(height_ary[value_picker.getValue()]);
+
 
         } else {
             value_picker.setDisplayedValues(age_ary);
             value_picker.setMaxValue(age_ary.length - 1);
             value_picker.setValue(Integer.parseInt(age_txt.getText().toString()) - 1);
+            value_edt.setText(age_ary[value_picker.getValue()]);
+
         }
 
         value_picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -306,7 +309,7 @@ public class ResultActivity extends Activity {
                         height_txt.setText(value_edt.getText());
 
                         int recordId = Integer.parseInt(preferences.getString("RecordID", ""));
-                        int actualHeight = Integer.parseInt(value_edt.getText().toString().split(" ")[0]);
+                        int actualHeight = (int) (Integer.parseInt(value_edt.getText().toString().split(" ")[0]) / 2.54);
 
                         // save the uer actual height.
                         onUpdateActualHeight(recordId, actualHeight);
@@ -365,7 +368,7 @@ public class ResultActivity extends Activity {
                 progressBar.setVisibility(View.GONE);
                 setHeightChk(true);
                 Log.d("Update Height Failure", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Service unavailable. Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -406,7 +409,7 @@ public class ResultActivity extends Activity {
                 progressBar.setVisibility(View.GONE);
                 setAgeChk(true);
                 Log.d("Update Age Failure", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Service unavailable. Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -448,7 +451,7 @@ public class ResultActivity extends Activity {
                 setGenderChk(true);
 
                 Log.d("Update Gender Failure", t.getMessage());
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Service unavailable. Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }

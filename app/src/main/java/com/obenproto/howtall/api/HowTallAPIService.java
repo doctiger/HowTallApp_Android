@@ -6,13 +6,15 @@ import com.squareup.okhttp.RequestBody;
 import retrofit.Call;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.Path;
 
 /**
  * HowTallAPIService
- * <p/>
+ * <p>
  * Created by Petro Rington on 12/22/2015.
  */
 public interface HowTallAPIService {
@@ -79,4 +81,10 @@ public interface HowTallAPIService {
     Call<HowTallApiResponse> saveUserEmail(@Field("recordId") int recordId,
                                            @Field("email") String email);
 
+    /**
+     * Recall of user phrase
+     * REST endpoint to return current current user phrase
+     */
+    @GET("howtall/rest/HowTallService/getUserPhrase/{userId}")
+    Call<HowTallApiResponse> getUserPhrase(@Path("userId") int userId);
 }

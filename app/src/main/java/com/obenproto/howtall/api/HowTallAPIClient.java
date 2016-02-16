@@ -21,7 +21,7 @@ import retrofit.Retrofit;
  */
 public class HowTallAPIClient {
 
-    public static final String BASE_URL = "https://www.oben.us/";
+    public static final String BASE_URL = "https://oben.us/";
 
     private static OkHttpClient httpClient = new OkHttpClient();
 

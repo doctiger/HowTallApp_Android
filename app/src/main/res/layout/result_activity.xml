@@ -38,7 +38,6 @@
             android:id="@+id/model_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/imageView11"
             android:layout_below="@+id/alert_view"
             android:layout_toEndOf="@+id/image_meter"
             android:layout_toRightOf="@+id/image_meter"

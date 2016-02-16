@@ -89,6 +89,10 @@ public class UserInitActivity extends Activity {
                 return true;
             }
         });
+
+        int prev_orientation = getResources().getConfiguration().orientation;
+        editor.putInt("PrevOrientation", prev_orientation);
+        editor.apply();
     }
 
     @Override
@@ -121,6 +125,7 @@ public class UserInitActivity extends Activity {
                     String confirm_str = preferences.getString("ConfirmStatus", "");
                     if (!confirm_str.equals("")) {
                         startActivity(new Intent(UserInitActivity.this, RecordActivity.class));
+//                        startActivity(new Intent(UserInitActivity.this, ShareActivity.class));
                         finish();
                     }
 
